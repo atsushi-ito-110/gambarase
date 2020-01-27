@@ -1,46 +1,37 @@
+
+<div class="">
+  <% if user_signed_in? %>
+    <%= @user.name %>
+  <% else %>
+    ログインしてください
+  <% end %>
+</div>
+
 <aside class="sidebar">
   <ul>
     <li>
-      <a href="#" class="img_01">予定</a>
+      <a href="/" class="">予定</a>
     </li>
-    <li>
-      <%= link_to "Sign up", new_registration_path(resource_name) %>
-    </li>
-    <li>
-      <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
-    </li>
+    <% if user_signed_in? %>
+      <li>
+        <%= link_to "Edit", edit_user_registration_path(resource_name) %>
+      </li>
+      <li>
+        <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+      </li>
+    <% else %>
+      <li>
+        <%= link_to "Sign in", new_session_path(resource_name) %>
+      </li>
+      <li>
+        <%= link_to "Sign up", new_registration_path(resource_name) %>
+      </li>
+    <% end %>
   </ul>
-  <div class="button">
-    <a href="#"></a>
-  </div>
 </aside>
 
 <div class="calendar-container">
 </div>
-
-<script type="text/javascript">
-$(function() {
-  var duration = 500;
-  var $sidebar = $('.sidebar');
-  var $button = $('.button a');
-
-  $button.addClass('open');
-  $button.click(function() {
-    $button.toggleClass('close');
-    $button.removeClass('open');
-    if ($button.hasClass('close')) {
-      $sidebar.stop().animate({
-        left: '0'
-      }, duration, 'easeOutQuint');
-    } else {
-      $sidebar.stop().animate({
-        left: '-100px'
-      }, duration, 'easeOutQuint');
-      $button.addClass('open');
-    };
-  });
-});
-</script>
 
 <script type="text/javascript">
 const weeks = [ '日', '月', '火', '水', '木', '金', '土',]
